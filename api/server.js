@@ -47,6 +47,22 @@ server.post('/users', async(req, res) => {
   }
 })
 
+//edit a user
+server.put('/users/:id', async (req, res) => {
+const user = await db.findById(req.params.id)
+if (!user) {
+  res.status(404).json({ message: "The user with the specified ID does not exist" })}
+  else if (user) {
+    const editedUser = await db.update(req.params.id, req.body)
+    res.status(200).json(editedUser)
+  } else {
+    res.status(500).json({ message: "The user information could not be modified" })
+
+  }
+
+  
+})
+
 
 
 
