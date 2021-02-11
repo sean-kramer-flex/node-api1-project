@@ -21,6 +21,19 @@ server.get('/users', async(req, res) => {
    })}
 })
 
+//get user by id
+server.get('/users/:id', async(req, res) => {
+  const user = await db.findById(req.params.id)
+  console.log(req.params.id)
+  if(user) {
+    res.json(user)
+  } else {
+    res.status(404).json({
+      message: "The user with the specified ID does not exist"
+    })
+  }
+})
+
 
 
 
