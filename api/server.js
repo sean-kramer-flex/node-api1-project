@@ -34,6 +34,19 @@ server.get('/users/:id', async(req, res) => {
   }
 })
 
+//add new user
+server.post('/users', async(req, res) => {
+  const newUser = await db.insert(req.body)
+  console.log('newUser: ', newUser);
+  if(!newUser.name || !newUser.bio) {
+    res.status(400).json({ message: "Please provide name and bio for the user" })
+  } else if (newUser){
+    res.status(201).json(newUser)
+  } else {
+    res.status(500).json({ message: "There was an error while saving the user to the database" })
+  }
+})
+
 
 
 
