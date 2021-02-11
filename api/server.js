@@ -63,6 +63,21 @@ if (!user) {
   
 })
 
+//delete a user
+server.delete('/users/:id', async (req, res) => {
+const user = await db.findById(req.params.id)
+
+if(!user) {
+  res.status(404).json({ message: "The user with the specified ID does not exist" })
+} else if (user) {
+  await db.remove(req.params.id)
+  res.status(200).json({message: 'user deleted'})
+} else {
+  res.status(500).json({ message: "The user could not be removed" })
+}
+
+})
+
 
 
 
